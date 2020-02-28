@@ -15,13 +15,8 @@ namespace customer_api.Services
 
         public Customer GetCustomerById(long id)
         {
-            var customer = new Customer();
-            customer.CustomerId = id;
-            customer.Firstname = "Anthony";
-            customer.Lastname = "Ikeda";
-            customer.EmailAddress = "anthony.ikeda@gmail.com";
-
-            return customer;
+            var cust = _context.Customers.Find(id);
+            return cust;
         }
 
         public long SaveCustomer(Customer customer)

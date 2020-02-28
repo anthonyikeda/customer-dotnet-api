@@ -27,7 +27,9 @@ namespace customer_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<CustomerContext>(opt => opt.UseInMemoryDatabase("CustomerList"));
+            services.AddDbContext<CustomerContext>(opt => 
+                opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"))
+            );
             services.AddControllers();
             services.AddScoped<ICustomerService, CustomerService>();
         }
