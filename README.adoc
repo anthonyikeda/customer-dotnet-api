@@ -1,0 +1,20 @@
+= Customer API
+Version 1.0.0
+:toc: right
+:listing-caption: Listing
+
+image::https://travis-ci.com/anthonyikeda/customer-dotnet-api.svg?branch=master[Build]
+
+== Overview
+Dotnet implementation of the Customer API as part of the Dan's Cafe Sample codebase.
+
+API manages basic customer details according the defined API.
+
+== Database
+
+There is a database setup script that creates:
+* Database
+* User
+
+
+
