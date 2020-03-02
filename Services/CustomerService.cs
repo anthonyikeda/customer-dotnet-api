@@ -1,6 +1,7 @@
 using System;
 using customer_api.Models;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace customer_api.Services
 {
@@ -8,8 +9,11 @@ namespace customer_api.Services
     {
         private readonly CustomerContext _context;
 
-        public CustomerService(CustomerContext context)
+        private readonly ILogger<CustomerService> _logger;
+
+        public CustomerService(ILogger<CustomerService> logger, CustomerContext context)
         {
+            _logger = logger;
             _context = context;
         }
 
@@ -21,19 +25,11 @@ namespace customer_api.Services
 
         public long SaveCustomer(Customer customer)
         {
-            var custId = LongRandom(100000000000000000, 100000000000000050, new Random());
-            customer.CustomerId = custId;
             _context.Customers.Add(customer);
             _context.SaveChanges();
-            return custId;
+            _logger.Log(LogLevel.Information, "Id: " + customer.CustomerId);
+            return customer.CustomerId;
         }
 
-        long LongRandom(long min, long max, Random rand)
-        {
-            long result = rand.Next((Int32)(min >> 32), (Int32)(max >> 32));
-            result = (result << 32);
-            result = result | (long)rand.Next((Int32)min, (Int32)max);
-            return result;
-        }
     }
 }

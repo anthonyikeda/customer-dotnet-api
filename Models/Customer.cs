@@ -7,6 +7,7 @@ namespace customer_api.Models
     [Table("customer")]
     public class Customer
     {
+        [Key]
         [Column("customer_id")]
         public long CustomerId { get; set; }
 
