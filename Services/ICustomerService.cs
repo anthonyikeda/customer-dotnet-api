@@ -1,5 +1,6 @@
 using customer_api.Models;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace customer_api.Services
 {
@@ -7,5 +8,9 @@ namespace customer_api.Services
     {
         Customer GetCustomerById(long id);
         long SaveCustomer(Customer customer);
+
+        void DeleteCustomer(long customerId);
+
+        List<Customer> FindAll();
     }
 }

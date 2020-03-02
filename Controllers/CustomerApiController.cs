@@ -33,10 +33,33 @@ namespace customer_api.Controllers
             return CreatedAtAction(nameof(GetCustomer), new { customerId = custId }, customer);
         }
 
+        [HttpGet]
+        public List<Customer> getAllCustomers()
+        {
+            return _service.FindAll();
+        }
+
         [HttpGet("{customerId}")]
         public Customer GetCustomer(long customerId)
         {
             return _service.GetCustomerById(customerId);
+        }
+
+        [HttpDelete("{customerId}")]
+        public IActionResult deleteCustomer(long customerId)
+        {
+            _logger.LogDebug(String.Format("Attempting to delete customer {0}", customerId));
+
+            try
+            {
+                _service.DeleteCustomer(customerId);
+                return Accepted();
+            } catch(ArgumentException e)
+            {
+                _logger.LogError("Customer not found", e);
+                return BadRequest();
+            }
+            
         }
     }
 }
